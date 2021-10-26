@@ -13,7 +13,7 @@
         crossorigin="anonymous"></script>
     <!-- Chart.js 3.5.1 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-    <title>TrueMedia Page</title>
+    <title>TruMedia Page</title>
 </head>
 <style>
     body {
@@ -31,6 +31,7 @@
 
     .player {
         margin: auto;
+        max-width: 1250px;
     }
 
     .faded {
@@ -78,7 +79,7 @@
         max-height: 75px;
     }
 
-    .player_icon img:not(:last-child) {
+    .player_select:not(last-child) {
         margin-left: 25px;
     }
 </style>
@@ -93,21 +94,22 @@
         </div>
     </nav>
     <div class="alert alert-warning text-center">
-        If no data is showing, the temporary authkey is expired. Please reach out to me to update this page, or replace
-        the '_TEMPTOKEN' variable at line 181 yourself.
+        The temp authtoken expires on Wed, 27 Oct 2021 03:31:57 GMT. If you are viewing this page after this time,
+        please reach out to me, or provide a new auth token in the _TEMPTOKEN variable.
         <br />
-        
+        <a style="color: brown"
+            href="https://github.com/tylerpedraja/trumedia-page/blob/main/TruMedia%20Project/index.html">Github Repo</a>
     </div>
     <div class="container bg-white py-5" style="min-height: 100vh;">
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center">
             <div class="h2">NFL Quarterback Statistics</div>
             <div id="players_gallery" class="d-flex"></div>
         </div>
 
         <div class="d-flex player">
             <div>
-                <div class="d-flex flex-column" id="stat_pills">
-                    <div id="yd/att_stats" data-statistic='att' class="stat_pill">
+                <div class="d-flex flex-row flex-column" id="stat_pills">
+                    <div data-statistic='att' class="stat_pill">
                         Att
                     </div>
                     <div data-statistic='cmp' class="stat_pill">
@@ -149,7 +151,7 @@
                 </div>
                 <div class="d-flex player-info justify-content-between">
                     <div class="p-3 d-flex flex-column justify-content-between">
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-column flex-sm-row justify-content-between">
                             <div>
                                 <div class="lead" id="player_name"></div>
                                 <div id="team_name" class="small faded"></div>
@@ -158,13 +160,14 @@
                                 <img src="" alt="" id="team_img">
                             </div>
                         </div>
-                        <div class="p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni laborum vero id
+                        <div class="p d-none d-sm-block">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
+                            laborum vero id
                             optio
                             dignissimos placeat ducimus assumenda labore autem sequi minima fugiat reiciendis deleniti
                             fuga,
                             beatae quisquam ipsa?
                         </div>
-                        <div class="d-flex mt-3">
+                        <div class="d-sm-flex mt-3 d-none">
                             <div>Bio</div>
                             <div class="mx-2">Social</div>
                             <div>More Info</div>
@@ -180,7 +183,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", async function (event) {
-            const _TEMPTOKEN = "d2e05df4-db15-4715-a4e0-94ffb32ca036",
+            const _TEMPTOKEN = "7386783e-7b5c-4c1c-9ac2-d54f00842cc5",
                 player_gallery = document.getElementById('players_gallery'),
                 default_player = {
                     id: '2543499',
@@ -397,8 +400,9 @@
 
             async function displayPlayers() {
                 let players = await getPlayers();
+
                 players.forEach(player => {
-                    player_gallery.innerHTML += `<div class="d-flex player_icon flex-column align-items-center" data-id="${player.playerId}">
+                    player_gallery.innerHTML += `<div class="d-flex player_icon flex-column align-items-center player_select" data-id="${player.playerId}">
                                                         <img class="d-block" src="${player.playerImage}" />
                                                         <div class="player_gallery_name small text-secondary">${player.fullName}</div>
                                                  </div>`;
